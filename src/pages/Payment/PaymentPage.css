@@ -2,6 +2,10 @@
 
 body {
     background-color: #f5f5f5;
+    background-image: url(../../assets/Images/back3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     color: #333;
     font-family: 'Arial', sans-serif;
   }

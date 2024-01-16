@@ -1,5 +1,6 @@
+/* Add any custom styles if needed */
+
 body {
-<<<<<<< Updated upstream
     background-color: #ffffff;
     color: #333; /* Change body text color if desired */
     font-family: 'Arial', sans-serif; /* Use your preferred font-family */
@@ -44,47 +45,3 @@ body {
     border: 2px solid #567281;
   }
   
-=======
-  background: url(../../assets/Images/back3.jpg) no-repeat center/cover;
-  /* color: #333; Change body text color if desired */
-  /* font-family: 'Arial', sans-serif; Use your preferred font-family */
-}
-
-.container {
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  color: #567281; /* Updated color to match the specified theme */
-}
-
-.card {
-  transition: transform 0.2s;
-  background-color: #567281;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-subtitle,
-.card-link {
-  color: #ffffff;
-}
-
-.card-link:hover {
-  text-decoration: underline;
-}
-
-.selected-category {
-  border: 2px solid #567281;
-}
->>>>>>> Stashed changes

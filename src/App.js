@@ -7,6 +7,10 @@ function App() {
   return (
     <div className="App">
       <HomePage />
+<<<<<<< Updated upstream
+=======
+      {/* <LoginScreen /> */}
+>>>>>>> Stashed changes
     </div>
   );
 }

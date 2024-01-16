@@ -1,6 +1,5 @@
-/* Add any custom styles if needed */
-
 body {
+<<<<<<< Updated upstream
     background-color: #ffffff;
     color: #333; /* Change body text color if desired */
     font-family: 'Arial', sans-serif; /* Use your preferred font-family */
@@ -51,3 +50,51 @@ body {
     background-color: #567281;
     color: #ffffff;
   }
+=======
+  background: url(../../assets/Images/back3.jpg) no-repeat center/cover fixed;
+  /* color: #333; Change body text color if desired */
+  /* font-family: 'Arial', sans-serif; Use your preferred font-family */
+  min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+  margin: 0; /* Remove default margin */
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: #567281;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img {
+  border-radius: 10px 0 0 10px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title,
+.card-text {
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #567281;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #567281;
+  color: #ffffff;
+}
+>>>>>>> Stashed changes

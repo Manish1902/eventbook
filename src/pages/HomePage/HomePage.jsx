@@ -9,8 +9,8 @@ function HomePage() {
     <div className='background'>
         <BurgerMenu />
         <Events />
-        {/* <EventDetailPage />
-        <PaymentPage /> */}
+        {/* <EventDetailPage /> */}
+        {/* <PaymentPage /> */}
     </div>
   )
 }

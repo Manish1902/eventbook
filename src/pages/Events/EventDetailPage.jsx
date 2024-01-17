@@ -1,5 +1,3 @@
-// src/EventDetailPage.js
-
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './EventDetails.css'
@@ -9,7 +7,7 @@ const EventDetailPage = () => {
     id: 1,
     title: 'Tech Conference 2024',
     date: 'January 30, 2024',
-    imageUrl: 'https://placekitten.com/200/200', // Replace with the actual image URL and adjust size
+    imageUrl: 'https://placekitten.com/200/200', // Replace 
     description: 'Join us for the latest trends in technology and innovation. Explore new ideas and meet industry experts.',
   };
 
@@ -23,7 +21,7 @@ const EventDetailPage = () => {
           <div className="col-md-8">
             <div className="card-body">
               <h4 className="card-title">{eventDetails.title}</h4>
-              <p className="card-text text-muted">{eventDetails.date}</p>
+              <p className="card-text">{eventDetails.date}</p>
               <button className="btn btn-primary">Book Now</button>
               <p className="card-text mt-3">{eventDetails.description}</p>
             </div>

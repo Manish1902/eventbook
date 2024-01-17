@@ -98,10 +98,10 @@ const Events = () => {
             <div className="card h-100">
               <div className="card-body">
                 <h5 className="card-title text-white">{event.title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted text-white">{event.category}</h6>
+                <h6 className="card-subtitle mb-2 ">{event.category}</h6>
                 <p className="card-text text-white">{event.date}</p>
                 <p className="card-text text-white">{event.description}</p>
-                <a href="./" className="card-link text-white">
+                <a href="./" className="card-link ">
                   Learn More
                 </a>
               </div>

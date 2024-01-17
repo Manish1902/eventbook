@@ -1,5 +1,3 @@
-// BurgerMenu.js
-
 import React, { useState } from 'react';
 import './Burger.css'; // Add custom CSS for styling if needed
 
@@ -21,7 +19,7 @@ const BurgerMenu = () => {
       <div className={`sliding-menu ${menuOpen ? 'open' : ''}`}>
         <ul className="nav flex-column">
           <li className="nav-item">
-            <a className="nav-link" href="./">
+          <a className="nav-link" href="./">
               Menu Item 1
             </a>
           </li>
@@ -35,7 +33,7 @@ const BurgerMenu = () => {
               Menu Item 3
             </a>
           </li>
-          {/* Add more menu items as needed */}
+          {/* Add more menu*/}
         </ul>
       </div>
     </>

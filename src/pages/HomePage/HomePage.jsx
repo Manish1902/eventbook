@@ -1,5 +1,5 @@
 import React from 'react'
-import BurgerMenu from '../../components/BurgerMenu/Burger'
+import BurgerMenu from '../BurgerMenu/Burger'
 import Events from '../Events/Events'
 import Footer from "../Footer/Footer";
 import EventDetailPage from '../Events/EventDetailPage'

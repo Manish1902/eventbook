@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Burger.css'; // Add custom CSS for styling if needed
+import { Link } from 'react-router-dom';
+import './Burger.css'; 
 
 const BurgerMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,9 +20,7 @@ const BurgerMenu = () => {
       <div className={`sliding-menu ${menuOpen ? 'open' : ''}`}>
         <ul className="nav flex-column">
           <li className="nav-item">
-          <a className="nav-link" href="./">
-              Menu Item 1
-            </a>
+          <Link to='/'>Login</Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="./">

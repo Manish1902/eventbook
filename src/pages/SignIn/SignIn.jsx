@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import HomePage from '../HomePage/HomePage';
 import './SignIn.css';
+import axios from 'axios';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  let navigate= useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -15,7 +17,33 @@ function SignIn() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/users");
+      const userData = response.data;
 
+      console.log('Full JSON data:', userData); // Log the entire data for debugging
+
+      // Check if user data exists and is an array
+      if (Array.isArray(userData)) {
+        const matchingUsers = userData.filter(user => user.email === email && user.password === password);
+
+        if (matchingUsers.length > 0) {
+          console.log('Login successful');
+          navigate('/HomePage')
+          // Redirect or perform further actions based on successful login
+        } else {
+          console.error('Invalid credentials');
+          // Handle login failure
+        }
+      } else {
+        console.error('Invalid JSON format: Missing or invalid "users" property');
+      }
+    } catch (error) {
+      console.error('Error fetching JSON data:', error.message);
+      // Handle error fetching JSON data
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -29,7 +57,7 @@ function SignIn() {
       return;
     }
     setError('');
-    //sign-in logic
+    fetchData();
   };
 
   return (
@@ -63,7 +91,10 @@ function SignIn() {
           <label htmlFor="password">Password</label>
         </div>
         {error && <div className="text-danger">{error}</div>}
-        <button type="submit" className="btn"><Link to='./HomePage'>Sign in</Link></button>
+        <button type="submit" className="btn">
+          {/* <Link to='./HomePage'>Sign in</Link> */}
+          Sign in
+        </button>
       </form>
     </div>
   );

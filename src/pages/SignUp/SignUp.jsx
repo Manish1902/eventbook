@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css';
+import axios from 'axios';
 
 function SignUp() {
   const [fullName, setFullName] = useState('');
@@ -8,6 +9,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  let navigate= useNavigate();
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
@@ -49,7 +51,18 @@ function SignUp() {
     }
 
     setError('');
-    //sign-up logic
+    let userData={
+      fullName:fullName,
+      dob:dob,
+      email:email,
+      password:password
+
+    }
+    console.log(userData)
+    let res = axios.post("http://localhost:4000/users",userData)
+    console.log(res)
+    navigate('/')
+
   };
 
   return (

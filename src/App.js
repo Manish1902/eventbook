@@ -8,11 +8,10 @@ import HomePage from "./pages/HomePage/HomePage";
 import PaymentPage from "./pages/Payment/Payment";
 import EventDetailPage from "./pages/Events/EventDetailPage";
 import Events from "./pages/Events/Events";
-import { DataContext } from "./context/dataContext";
+// import { DataContext } from "./context/dataContext";
 
 function App() {
   return (
-    <DataContext>
       <div className="App">
         <BrowserRouter>
           <Routes>
@@ -26,7 +25,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-    </DataContext>
   );
 }
 

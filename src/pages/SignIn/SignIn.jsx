@@ -17,33 +17,7 @@ function SignIn() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/users");
-      const userData = response.data;
-
-      console.log('Full JSON data:', userData); // Log the entire data for debugging
-
-      // Check if user data exists and is an array
-      if (Array.isArray(userData)) {
-        const matchingUsers = userData.filter(user => user.email === email && user.password === password);
-
-        if (matchingUsers.length > 0) {
-          console.log('Login successful');
-          navigate('/HomePage')
-          // Redirect or perform further actions based on successful login
-        } else {
-          console.error('Invalid credentials');
-          // Handle login failure
-        }
-      } else {
-        console.error('Invalid JSON format: Missing or invalid "users" property');
-      }
-    } catch (error) {
-      console.error('Error fetching JSON data:', error.message);
-      // Handle error fetching JSON data
-    }
-  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -57,7 +31,32 @@ function SignIn() {
       return;
     }
     setError('');
-    fetchData();
+    axios.get("http://localhost:4000/users")
+  .then(response => {
+    const userData = response.data;
+
+    console.log('Full JSON data:', userData); // Log the entire data for debugging
+
+    // Check if user credentials match
+    if (userData) {
+      const user = userData.find(user => user.email === email && user.password === password);
+
+      if (user) {
+        console.log('Login successful');
+        navigate('/HomePage')
+        // Redirect or perform further actions based on successful login
+      } else {
+        console.error('Invalid credentials');
+        // Handle login failure
+      }
+    } else {
+      console.error('Invalid JSON format: Missing "users" property');
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching JSON data:', error);
+    // Handle error fetching JSON data
+  });
   };
 
   return (

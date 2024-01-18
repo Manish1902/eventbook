@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import HomePage from '../HomePage/HomePage';
 import './SignIn.css';
 
 function SignIn() {
@@ -18,29 +19,24 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic email validation
     if (!email || !email.includes('@')) {
       setError('Invalid email address');
       return;
     }
 
-    // Basic password validation
     if (!password || password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
-
-    // If all validations pass, you can proceed with the sign-in logic
-    // For now, just clear the error message
     setError('');
-
-    // Your sign-in logic goes here
+    //sign-in logic
   };
 
   return (
-    <div className='inputfields'>
+    <div className='container'>
+      <h2><strong>Hello</strong>, Grab seats for your upcoming fav event!</h2>
       <div>
-        <Link to='/' className='link-style'>Login</Link>
+        <Link to='/' className='link-style'>SignIn</Link>
         <Link to='/SignUp' className='link-style'>SignUp</Link>
       </div>
       <form onSubmit={handleSubmit}>
@@ -67,7 +63,7 @@ function SignIn() {
           <label htmlFor="password">Password</label>
         </div>
         {error && <div className="text-danger">{error}</div>}
-        <button type="submit" className="btn">Sign in</button>
+        <button type="submit" className="btn"><Link to='./HomePage'>Sign in</Link></button>
       </form>
     </div>
   );

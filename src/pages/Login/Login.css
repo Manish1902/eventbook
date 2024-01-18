@@ -15,7 +15,6 @@
 }
 
 .flex-item1 {
-    background-color: 'grey';
     height: 100hv;
     flex-grow: 4;
     flex-basis: 160px;
@@ -41,3 +40,4 @@
 .inputfields {
     margin-top: 40px;
 }
+

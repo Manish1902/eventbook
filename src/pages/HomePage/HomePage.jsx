@@ -1,16 +1,18 @@
 import React from 'react'
 import BurgerMenu from '../../components/BurgerMenu/Burger'
 import Events from '../Events/Events'
-// import EventDetailPage from '../Events/EventDetailPage'
-// import PaymentPage from '../Payment/Payment'
+import Footer from "../Footer/Footer";
+import EventDetailPage from '../Events/EventDetailPage'
+import PaymentPage from '../Payment/Payment'
 
 function HomePage() {
   return (
     <div className='background'>
         <BurgerMenu />
         <Events />
-        {/* <EventDetailPage /> */}
-        {/* <PaymentPage /> */}
+        <EventDetailPage />
+        <PaymentPage />
+        <Footer />
     </div>
   )
 }

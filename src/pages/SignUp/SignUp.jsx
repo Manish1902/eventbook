@@ -28,42 +28,43 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic full name validation
     if (!fullName) {
       setError('Full Name is required');
       return;
     }
 
-    // Basic date of birth validation
     if (!dob) {
       setError('Date of Birth is required');
       return;
     }
 
-    // Basic email validation
     if (!email || !email.includes('@')) {
       setError('Invalid email address');
       return;
     }
 
-    // Basic password validation
     if (!password || password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
 
-    // If all validations pass, you can proceed with the sign-up logic
-    // For now, just clear the error message
     setError('');
-
-    // Your sign-up logic goes here
+    //sign-up logic
   };
 
   return (
     <div>
-      <div className='inputfields'>
+      <div className='block'>
+            <div className='flex-container'>
+                <div className="flex-item1">
+                    {/* <div >1 of 1</div> */}
+                </div>
+                <div className="flex-item2">
+                    <div className='datafields'>
+                    <div className='container'>
+      <h2><strong>Hello</strong>, Grab seats for your upcoming fav event!</h2>
         <div>
-          <Link to='/' className='link-style'>Login</Link>
+          <Link to='/' className='link-style'>SignIn</Link>
           <Link to='/SignUp' className='link-style'>SignUp</Link>
         </div>
         <form onSubmit={handleSubmit}>
@@ -115,6 +116,11 @@ function SignUp() {
           <button type="submit" className="btn btn-primary">Sign Up</button>
         </form>
       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
     </div>
   );
 }

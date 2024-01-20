@@ -1,57 +1,26 @@
-// ... (previous code)
-import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Events.css';
 
 const Events = () => {
-  const eventsData = [
-    {
-      id: 1,
-      title: 'Tech Conference 2024',
-      category: 'Technology',
-      date: '20-4-2024',
-      description: 'Join us for the latest trends in technology and innovation.',
-    },
-    {
-      id: 2,
-      title: 'Fitness Workshop',
-      category: 'Health & Wellness',
-      date: '20-4-2024',
-      description: 'Get fit and healthy with our expert trainers. All fitness levels welcome!',
-    },
-    {
-      id: 3,
-      title: 'Art Exhibition',
-      category: 'Art & Culture',
-      date: '20-4-2024',
-      description: 'Explore the world of art with our diverse collection of paintings and sculptures.',
-    },
-    {
-      id: 4,
-      title: 'Tech Conference 2024',
-      category: 'Technology',
-      date: '20-4-2024',
-      description: 'Join us for the latest trends in technology and innovation.',
-    },
-    {
-      id: 5,
-      title: 'Fitness Workshop',
-      category: 'Health & Wellness',
-      date: '20-4-2024',
-      description: 'Get fit and healthy with our expert trainers. All fitness levels welcome!',
-    },
-    {
-      id: 6,
-      title: 'Art Exhibition',
-      category: 'Art & Culture',
-      date: '20-4-2024',
-      description: 'Explore the world of art with our diverse collection of paintings and sculptures.',
-    },
-    // Add more events as needed
-  ];
-
-  const uniqueCategories = [...new Set(eventsData.map((event) => event.category))];
-
+  const [eventsData, setEventsData] = useState([]);
+  const [uniqueCategories, setUniqueCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/events");
+        setEventsData(response.data);
+        setUniqueCategories([...new Set(response.data.map((event) => event.category))]);
+      } catch (error) {
+        alert.error('Error fetching events data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures that the effect runs only once after the initial render
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -62,8 +31,10 @@ const Events = () => {
   };
 
   const filteredEvents = selectedCategory
-    ? eventsData.filter((event) => event.category === selectedCategory)
-    : eventsData;
+    ? eventsData
+      .filter((event) => event.category === selectedCategory)
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+    : eventsData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
     <div className="container mt-4">
@@ -101,9 +72,9 @@ const Events = () => {
                 <h6 className="card-subtitle mb-2 ">{event.category}</h6>
                 <p className="card-text text-white">{event.date}</p>
                 <p className="card-text text-white">{event.description}</p>
-                <a href="./" className="card-link ">
-                  Learn More
-                </a>
+                <Link to={`/EventsDetailPage/${event.id}`} className="card-link">
+                  View Details
+                </Link>
               </div>
             </div>
           </div>

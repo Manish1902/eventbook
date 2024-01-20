@@ -4,31 +4,25 @@ import './SignUp.css';
 import axios from 'axios';
 
 function SignUp() {
-  const [fullName, setFullName] = useState('');
-  const [dob, setDob] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userData, setUserData] = useState({
+    fullName: '',
+    dob: '',
+    email: '',
+    password: '',
+  });
+
   const [error, setError] = useState('');
-  let navigate= useNavigate();
+  let navigate = useNavigate();
 
-  const handleFullNameChange = (e) => {
-    setFullName(e.target.value);
-  };
-
-  const handleDobChange = (e) => {
-    setDob(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const { fullName, dob, email, password } = userData;
 
     if (!fullName) {
       setError('Full Name is required');
@@ -51,89 +45,85 @@ function SignUp() {
     }
 
     setError('');
-    let userData={
-      fullName:fullName,
-      dob:dob,
-      email:email,
-      password:password
-
-    }
-    console.log(userData)
-    let res = axios.post("http://localhost:4000/users",userData)
-    console.log(res)
-    navigate('/')
-
+    
+    axios.post("http://localhost:4000/users", userData)
+      .then((res) => {
+        console.log(res);
+        alert("Registration Complete");
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error('Error during registration:', error);
+      });
   };
 
   return (
     <div>
       <div className='block'>
-            <div className='flex-container'>
-                <div className="flex-item1">
-                    {/* <div >1 of 1</div> */}
-                </div>
-                <div className="flex-item2">
-                    <div className='datafields'>
-                    <div className='container'>
-      <h2><strong>Hello</strong>, Grab seats for your upcoming fav event!</h2>
-        <div>
-          <Link to='/' className='link-style'>SignIn</Link>
-          <Link to='/SignUp' className='link-style'>SignUp</Link>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="form-floating mt-3">
-            <input
-              type="text"
-              className="form-control"
-              id="input"
-              placeholder="name"
-              value={fullName}
-              onChange={handleFullNameChange}
-            />
-            <label htmlFor="input">Full Name</label>
-          </div>
-          <div className="form-floating mt-3">
-            <input
-              type="date"
-              className="form-control dob"
-              id="date"
-              placeholder="DOB"
-              value={dob}
-              onChange={handleDobChange}
-            />
-            <label htmlFor="date">Date of Birth</label>
-          </div>
-          <div className="form-floating mt-3">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="name@example.com"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <label htmlFor="email">Email address</label>
-          </div>
-          <div className="form-floating mt-3 mb-3">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            <label htmlFor="password">Password</label>
-          </div>
-          {error && <div className="text-danger">{error}</div>}
-          <button type="submit" className="btn btn-primary">Sign Up</button>
-        </form>
-      </div>
-                    </div>
-                </div>
+        <div className='flex-container'>
+          <div className="flex-item1"></div>
+          <div className="flex-item2">
+            <div className='datafields'>
+              <div className='container'>
+                <h2><strong>Hello</strong>, Grab seats for your upcoming fav event!</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-floating mt-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="name"
+                      value={userData.fullName}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="fullName">Full Name</label>
+                  </div>
+                  <div className="form-floating mt-3">
+                    <input
+                      type="date"
+                      className="form-control dob"
+                      id="dob"
+                      name="dob"
+                      placeholder="DOB"
+                      value={userData.dob}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="dob">Date of Birth</label>
+                  </div>
+                  <div className="form-floating mt-3">
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="name@example.com"
+                      value={userData.email}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="email">Email address</label>
+                  </div>
+                  <div className="form-floating mt-3 mb-3">
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      value={userData.password}
+                      onChange={handleInputChange}
+                    />
+                    <label htmlFor="password">Password</label>
+                  </div>
+                  {error && <div className="text-danger">{error}</div>}
+                  <button type="submit" className="btn btn-primary">Sign Up</button>
+                </form>
+                <div className="mt-3">Already a user!<Link to='/' className='link-style'>SignIn</Link></div>
+              </div>
             </div>
+          </div>
         </div>
-      
+      </div>
     </div>
   );
 }

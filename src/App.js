@@ -6,7 +6,7 @@ import LoginScreen from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import HomePage from "./pages/HomePage/HomePage";
 import PaymentPage from "./pages/Payment/Payment";
-import EventDetailPage from "./pages/Events/EventDetailPage";
+import EventDetailPage from "./pages/EventDetailPage/EventDetailPage";
 import Events from "./pages/Events/Events";
 // import { DataContext } from "./context/dataContext";
 
@@ -19,8 +19,8 @@ function App() {
             {/* <Route path="/SignIn" element={<SignIn />}></Route> */}
             <Route path="/SignUp" element={<SignUp />}></Route>
             <Route path="/HomePage" element={<HomePage />}></Route>
-            <Route path="/Payment" element={<PaymentPage />}></Route>
-            <Route path="/Events" element={<EventDetailPage />}></Route>
+            <Route path="/Payment/:eventId" element={<PaymentPage />}></Route>
+            <Route path="/EventsDetailPage/:eventId" element={<EventDetailPage />} />
             <Route path="/Events" element={<Events />}></Route>
           </Routes>
         </BrowserRouter>

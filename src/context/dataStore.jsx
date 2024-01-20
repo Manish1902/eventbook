@@ -1,16 +1,14 @@
-import React from 'react'
-import { DataContext } from './dataContext'
+import React, { useState } from 'react';
+import { DataContext } from './DataContext';
 
+function DataStore({ children }) {
+  const [user, setUser] = useState();
 
-function dataStore(children){
-
-
-return(
-    <DataContext.Provider>
-        {children}
-  </DataContext.Provider>
-
-)  
+  return (
+    <DataContext.Provider value={[user, setUser]}>
+      {children}
+    </DataContext.Provider>
+  );
 }
 
-export default dataStore
+export default DataStore;

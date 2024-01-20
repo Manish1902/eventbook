@@ -1,8 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PaymentPage.css';
+import Footer from '../Footer/Footer';
+import BurgerMenu from '../BurgerMenu/Burger';
 
 const PaymentPage = () => {
+  const [price, setPrice] = useState(0);
+  const [count, setCount] = useState(1);
+  const { eventId } = useParams();
+  const [eventDetail, setEventDetails] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/events/${eventId}`);
+        setEventDetails(response.data);
+        console.log(response.data)
+        setPrice(eventDetail.priceInRupees)
+      } catch (error) {
+        console.error('Error fetching event details:', error);
+      }
+    };
+
+    fetchData();
+  }, [eventDetail.priceInRupees, eventId]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,6 +52,20 @@ const PaymentPage = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     setValidationErrors({ ...validationErrors, [e.target.id]: '' });
   };
+
+  const subprice = () => {
+    if (count >= 1) {
+      setPrice(price - eventDetail.priceInRupees);
+      setCount(-1)
+    }
+    else {
+      alert('Item count cannot be 0')
+    }
+  }
+  const addprice = () => {
+    setPrice(price + eventDetail.priceInRupees);
+    setCount(+1);
+  }
 
   const handleMakePayment = (e) => {
     e.preventDefault();
@@ -73,148 +112,160 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-center">Payment Information</h2>
+    <div>
+      <BurgerMenu />
+      <div className="container mt-4 mb-5">
+        <h2 className="text-center mt-3 mb-5">Payment Information</h2>
 
-      <div className="row">
-        {/* Card 1: Personal Information */}
-        <div className="col-md-4 mb-4">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Personal Information</h5>
-              <form>
-                <div className="form-group">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    type="text"
-                    className={`form-control ${validationErrors.name && 'is-invalid'}`}
-                    id="name"
-                    placeholder="Enter your name"
-                    onChange={handleInputChange}
-                  />
-                  {validationErrors.name && (
-                    <div className="invalid-feedback">{validationErrors.name}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    className={`form-control ${validationErrors.email && 'is-invalid'}`}
-                    id="email"
-                    placeholder="Enter your email"
-                    onChange={handleInputChange}
-                  />
-                  {validationErrors.email && (
-                    <div className="invalid-feedback">{validationErrors.email}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    className={`form-control ${validationErrors.phone && 'is-invalid'}`}
-                    id="phone"
-                    placeholder="Enter your phone number"
-                    onChange={handleInputChange}
-                  />
-                  {validationErrors.phone && (
-                    <div className="invalid-feedback">{validationErrors.phone}</div>
-                  )}
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 2: Payment Method */}
-        <div className="col-md-4 mb-4">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Payment Method</h5>
-              <form>
-                <div className="form-group">
-                  <label htmlFor="cardHolder">Cardholder Name</label>
-                  <input
-                    type="text"
-                    className={`form-control ${validationErrors.cardHolder && 'is-invalid'}`}
-                    id="cardHolder"
-                    placeholder="Enter cardholder name"
-                    onChange={handleInputChange}
-                  />
-                  {validationErrors.cardHolder && (
-                    <div className="invalid-feedback">{validationErrors.cardHolder}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="cardNumber">Card Number</label>
-                  <input
-                    type="text"
-                    className={`form-control ${validationErrors.cardNumber && 'is-invalid'}`}
-                    id="cardNumber"
-                    placeholder="Enter card number"
-                    onChange={handleInputChange}
-                  />
-                  {validationErrors.cardNumber && (
-                    <div className="invalid-feedback">{validationErrors.cardNumber}</div>
-                  )}
-                </div>
-                <div className="form-row">
-                  <div className="col-md-6">
-                    <label htmlFor="expDate">Expiration Date</label>
+        <div className="row">
+          {/* Card 1: Personal Information */}
+          <div className="col-md-4 mb-4">
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">Personal Information</h5>
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="name">Name</label>
                     <input
                       type="text"
-                      className={`form-control ${validationErrors.expDate && 'is-invalid'}`}
-                      id="expDate"
-                      placeholder="MM/YYYY"
+                      className={`form-control ${validationErrors.name && 'is-invalid'}`}
+                      id="name"
+                      placeholder="Enter your name"
                       onChange={handleInputChange}
                     />
-                    {validationErrors.expDate && (
-                      <div className="invalid-feedback">{validationErrors.expDate}</div>
+                    {validationErrors.name && (
+                      <div className="invalid-feedback">{validationErrors.name}</div>
                     )}
                   </div>
-                  <div className="col-md-6">
-                    <label htmlFor="cvc">CVC</label>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input
-                      type="text"
-                      className={`form-control ${validationErrors.cvc && 'is-invalid'}`}
-                      id="cvc"
-                      placeholder="Enter CVC"
+                      type="email"
+                      className={`form-control ${validationErrors.email && 'is-invalid'}`}
+                      id="email"
+                      placeholder="Enter your email"
                       onChange={handleInputChange}
                     />
-                    {validationErrors.cvc && (
-                      <div className="invalid-feedback">{validationErrors.cvc}</div>
+                    {validationErrors.email && (
+                      <div className="invalid-feedback">{validationErrors.email}</div>
                     )}
                   </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 3: Item Details and Cost */}
-        <div className="col-md-4 mb-4">
-          <div className="card h-100">
-            <div className="card-body">
-              <h5 className="card-title">Item Details</h5>
-              <div className="item-details">
-                {/* Display selected data from the previous component */}
-                {/* Add your logic to fetch and display selected data */}
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone Number</label>
+                    <input
+                      type="tel"
+                      className={`form-control ${validationErrors.phone && 'is-invalid'}`}
+                      id="phone"
+                      placeholder="Enter your phone number"
+                      onChange={handleInputChange}
+                    />
+                    {validationErrors.phone && (
+                      <div className="invalid-feedback">{validationErrors.phone}</div>
+                    )}
+                  </div>
+                </form>
               </div>
-              <hr />
-              <h6>Total Cost: $50.00</h6>
-              <button className="btn btn-primary" onClick={handleMakePayment}>
-                Make Payment
-              </button>
-              {Object.keys(validationErrors).map((key) => (
-                <p key={key} className="text-danger mt-2">
-                  {validationErrors[key]}
-                </p>
-              ))}
+            </div>
+          </div>
+
+          {/* Card 2: Payment Method */}
+          <div className="col-md-4 mb-4">
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">Payment Method</h5>
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="cardHolder">Cardholder Name</label>
+                    <input
+                      type="text"
+                      className={`form-control ${validationErrors.cardHolder && 'is-invalid'}`}
+                      id="cardHolder"
+                      placeholder="Enter cardholder name"
+                      onChange={handleInputChange}
+                    />
+                    {validationErrors.cardHolder && (
+                      <div className="invalid-feedback">{validationErrors.cardHolder}</div>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="cardNumber">Card Number</label>
+                    <input
+                      type="text"
+                      className={`form-control ${validationErrors.cardNumber && 'is-invalid'}`}
+                      id="cardNumber"
+                      placeholder="Enter card number"
+                      onChange={handleInputChange}
+                    />
+                    {validationErrors.cardNumber && (
+                      <div className="invalid-feedback">{validationErrors.cardNumber}</div>
+                    )}
+                  </div>
+                  <div className="form-row">
+                    <div className="col-md-6">
+                      <label htmlFor="expDate">Expiration Date</label>
+                      <input
+                        type="text"
+                        className={`form-control ${validationErrors.expDate && 'is-invalid'}`}
+                        id="expDate"
+                        placeholder="MM/YYYY"
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.expDate && (
+                        <div className="invalid-feedback">{validationErrors.expDate}</div>
+                      )}
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="cvc">CVC</label>
+                      <input
+                        type="text"
+                        className={`form-control ${validationErrors.cvc && 'is-invalid'}`}
+                        id="cvc"
+                        placeholder="Enter CVC"
+                        onChange={handleInputChange}
+                      />
+                      {validationErrors.cvc && (
+                        <div className="invalid-feedback">{validationErrors.cvc}</div>
+                      )}
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Item Details and Cost */}
+          <div className="col-md-4 mb-4">
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">Item Details</h5>
+                <hr />
+                <h6>{''}</h6>
+                <h6>{''}</h6>
+                <hr />
+                <h6>{count}</h6>
+                <h6>Rs. {price}</h6>
+                <button className="btn btn-primary" onClick={subprice}>
+                  <strong>-</strong>
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button className="btn btn-primary" onClick={addprice}>
+                  <strong>+</strong>
+                </button>
+                <hr />
+                <button className="btn btn-primary" onClick={handleMakePayment}>
+                  Make Payment
+                </button>
+                {Object.keys(validationErrors).map((key) => (
+                  <p key={key} className="text-danger mt-2">
+                    {validationErrors[key]}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

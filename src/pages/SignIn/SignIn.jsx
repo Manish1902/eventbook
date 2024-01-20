@@ -42,19 +42,19 @@ function SignIn() {
       const user = userData.find(user => user.email === email && user.password === password);
 
       if (user) {
-        console.log('Login successful');
+        alert('Login successful');
         navigate('/HomePage')
         // Redirect or perform further actions based on successful login
       } else {
-        console.error('Invalid credentials');
+        alert('Invalid credentials');
         // Handle login failure
       }
     } else {
-      console.error('Invalid JSON format: Missing "users" property');
+      alert('Invalid JSON format: Missing "users" property');
     }
   })
   .catch(error => {
-    console.error('Error fetching JSON data:', error);
+    alert('Error fetching JSON data:', error);
     // Handle error fetching JSON data
   });
   };

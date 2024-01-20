@@ -20,17 +20,17 @@ const BurgerMenu = () => {
       <div className={`sliding-menu ${menuOpen ? 'open' : ''}`}>
         <ul className="nav flex-column">
           <li className="nav-item">
-          <Link to='/'>Login</Link>
+            <a className="nav-link" href="./">
+              Menu Item 1
+            </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="./">
               Menu Item 2
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="./">
-              Menu Item 3
-            </a>
+          <li className="nav-item ">
+          <Link to='/'>LogOut</Link>
           </li>
           {/* Add more menu*/}
         </ul>

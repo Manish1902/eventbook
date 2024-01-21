@@ -15,7 +15,6 @@ const PaymentPage = () => {
   // const { eventId } = useParams();
   // const [eventDetail, setEventDetails] = useState(null);
 
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -32,8 +31,8 @@ const PaymentPage = () => {
   // }, [eventDetail.priceInRupees, eventId]);
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    name: user.fullName || '',
+    email: user.email || '',
     phone: '',
     cardHolder: '',
     cardNumber: '',
@@ -135,7 +134,8 @@ const PaymentPage = () => {
                       id="name"
                       placeholder="Enter your name"
                       onChange={handleInputChange}
-                      value={user.fullName}
+                      value={formData.fullName}
+                      // autoComplete={formData.fullName}
                     />
                     {validationErrors.name && (
                       <div className="invalid-feedback">{validationErrors.name}</div>
@@ -148,8 +148,9 @@ const PaymentPage = () => {
                       className={`form-control ${validationErrors.email && 'is-invalid'}`}
                       id="email"
                       placeholder="Enter your email"
-                      value={user.email}
                       onChange={handleInputChange}
+                      value={formData.email}
+                      // autoComplete={formData.email}
                     />
                     {validationErrors.email && (
                       <div className="invalid-feedback">{validationErrors.email}</div>

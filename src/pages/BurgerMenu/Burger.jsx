@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Burger.css'; 
+import './Burger.css';
 
 const BurgerMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,16 +21,19 @@ const BurgerMenu = () => {
         <ul className="nav flex-column">
           <li className="nav-item">
             <a className="nav-link" href="./">
-              Menu Item 1
+              Menu Item 2
             </a>
-          </li>
+          </li> 
           <li className="nav-item">
             <a className="nav-link" href="./">
               Menu Item 2
             </a>
           </li>
+          <li className="nav-item">
+            <Link to='/HomePage'>HomePage</Link>
+          </li>
           <li className="nav-item ">
-          <Link to='/'>LogOut</Link>
+            <Link to='/'>LogOut</Link>
           </li>
           {/* Add more menu*/}
         </ul>

@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+// import { useParams } from 'react-router-dom';
+// import axios from 'axios';
+import { useContext } from 'react';
+import { DataContext } from '../../context/dataContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PaymentPage.css';
 import Footer from '../Footer/Footer';
 import BurgerMenu from '../BurgerMenu/Burger';
 
 const PaymentPage = () => {
-  const [price, setPrice] = useState(0);
+  let {user,selectedEvent } = useContext(DataContext)
+  const [price, setPrice] = useState(selectedEvent.priceInRupees);
   const [count, setCount] = useState(1);
-  const { eventId } = useParams();
-  const [eventDetail, setEventDetails] = useState(null);
+  // const { eventId } = useParams();
+  // const [eventDetail, setEventDetails] = useState(null);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/events/${eventId}`);
-        setEventDetails(response.data);
-        console.log(response.data)
-        setPrice(eventDetail.priceInRupees)
-      } catch (error) {
-        console.error('Error fetching event details:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:4000/events/${eventId}`);
+  //       setEventDetails(response.data);
+  //       console.log(response.data)
+  //       setPrice(eventDetail.priceInRupees)
+  //     } catch (error) {
+  //       console.error('Error fetching event details:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [eventDetail.priceInRupees, eventId]);
+  //   fetchData();
+  // }, [eventDetail.priceInRupees, eventId]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -54,17 +57,17 @@ const PaymentPage = () => {
   };
 
   const subprice = () => {
-    if (count >= 1) {
-      setPrice(price - eventDetail.priceInRupees);
-      setCount(-1)
+    if (count > 1) {
+      setPrice(price - selectedEvent.priceInRupees);
+      setCount(count-1)
     }
     else {
       alert('Item count cannot be 0')
     }
   }
   const addprice = () => {
-    setPrice(price + eventDetail.priceInRupees);
-    setCount(+1);
+    setPrice(price + selectedEvent.priceInRupees);
+    setCount(count+1);
   }
 
   const handleMakePayment = (e) => {
@@ -132,6 +135,7 @@ const PaymentPage = () => {
                       id="name"
                       placeholder="Enter your name"
                       onChange={handleInputChange}
+                      value={user.fullName}
                     />
                     {validationErrors.name && (
                       <div className="invalid-feedback">{validationErrors.name}</div>
@@ -144,6 +148,7 @@ const PaymentPage = () => {
                       className={`form-control ${validationErrors.email && 'is-invalid'}`}
                       id="email"
                       placeholder="Enter your email"
+                      value={user.email}
                       onChange={handleInputChange}
                     />
                     {validationErrors.email && (
@@ -239,8 +244,8 @@ const PaymentPage = () => {
               <div className="card-body">
                 <h5 className="card-title">Item Details</h5>
                 <hr />
-                <h6>{''}</h6>
-                <h6>{''}</h6>
+                <h6>{selectedEvent.title}</h6>
+                <h6>{selectedEvent.date}</h6>
                 <hr />
                 <h6>{count}</h6>
                 <h6>Rs. {price}</h6>

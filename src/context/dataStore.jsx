@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
-import { DataContext } from './DataContext';
+import { DataContext } from './dataContext';
 
 function DataStore({ children }) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({
+    fullName: '',
+    dob: '',
+    email: '',
+    password: '',
+  });
+
+  const [selectedEvent, setSelectedEvent] = useState({
+    id: 0,
+    title: '',
+    category: '',
+    date: '',
+    description: '',
+    imageUrl: '',
+    priceInRupees: 0,
+  });
 
   return (
-    <DataContext.Provider value={[user, setUser]}>
+    <DataContext.Provider value={{ user, setUser, selectedEvent, setSelectedEvent }}>
       {children}
     </DataContext.Provider>
   );

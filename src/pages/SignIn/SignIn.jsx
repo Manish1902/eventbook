@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {DataContext} from '../../context/dataContext';
 import './SignIn.css';
 import axios from 'axios';
 
 function SignIn() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  let {user, setUser} = useContext(DataContext) 
+  // const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   let navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!credentials.email || !credentials.email.includes('@')) {
+    if (!user.email || !user.email.includes('@')) {
       setError('Invalid email address');
       return;
     }
 
-    if (!credentials.password || credentials.password.length < 6) {
+    if (!user.password || user.password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
@@ -36,9 +38,11 @@ function SignIn() {
 
         // Check if user credentials match
         if (userData) {
-          const user = userData.find(user => user.email === credentials.email && user.password === credentials.password);
+          const newuser = userData.find(cuser => cuser.email === user.email && cuser.password === user.password);
 
-          if (user) {
+          if (newuser) {
+            console.log(newuser);
+            setUser(newuser);
             console.log(user);
             navigate('/HomePage');
             // Redirect or perform further actions based on successful login
@@ -67,7 +71,7 @@ function SignIn() {
             id="email"
             name="email"
             placeholder="name@example.com"
-            value={credentials.email}
+            value={user.email}
             onChange={handleInputChange}
           />
           <label htmlFor="email">Email address</label>
@@ -79,7 +83,7 @@ function SignIn() {
             id="password"
             name="password"
             placeholder="Password"
-            value={credentials.password}
+            value={user.password}
             onChange={handleInputChange}
           />
           <label htmlFor="password">Password</label>

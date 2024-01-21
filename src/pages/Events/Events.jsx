@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+// import {useContext } from 'react';
+// import {DataContext} from '../../context/dataContext';
 import axios from 'axios';
 import './Events.css';
 
 const Events = () => {
+  // let {user, setUser} = useContext(DataContext)
   const [eventsData, setEventsData] = useState([]);
   const [uniqueCategories, setUniqueCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);

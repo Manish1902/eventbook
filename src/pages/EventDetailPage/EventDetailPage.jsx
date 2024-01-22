@@ -15,9 +15,9 @@ const EventDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/events/${eventId}`);
+        const response = await axios.get(`http://localhost:4000/events/?id=${eventId}`);
         // setEventDetails(response.data);
-        setSelectedEvent(response.data);
+        setSelectedEvent(response.data[0]);
       } catch (error) {
         console.error('Error fetching event details:', error);
       }
@@ -34,6 +34,7 @@ const EventDetailPage = () => {
     <div>
       <BurgerMenu />
       {console.log(selectedEvent)}
+      {console.log(eventId)}
       <div className="container mt-5 mb-5">
         <div className="card pt-5 pb-5" >
           <div className="row no-gutters">

@@ -33,17 +33,14 @@ function SignIn() {
     axios.get("http://localhost:4000/users")
       .then(response => {
         const userData = response.data;
-
-        console.log('Full JSON data:', userData); // Log the entire data for debugging
-
+        // console.log('Full JSON data:', userData); // Log the entire data for debugging
         // Check if user credentials match
         if (userData) {
-          const newuser = userData.find(cuser => cuser.email === user.email && cuser.password === user.password);
-
+          const newuser = userData.find(x => x.email === user.email && x.password === user.password);
           if (newuser) {
-            console.log(newuser);
+            // console.log(newuser);
             setUser(newuser);
-            console.log(user);
+            // console.log(user);
             navigate('/HomePage');
             // Redirect or perform further actions based on successful login
           } else {

@@ -41,6 +41,7 @@ const Events = () => {
 
   return (
     <div className="container mt-4">
+      {console.log(eventsData)}
       <h2 className="text-center mb-5">Categories</h2>
       <div className="row">
         {uniqueCategories.map((category) => (

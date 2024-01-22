@@ -134,7 +134,7 @@ const PaymentPage = () => {
                       id="name"
                       placeholder="Enter your name"
                       onChange={handleInputChange}
-                      value={formData.fullName}
+                      value={formData.name}
                       // autoComplete={formData.fullName}
                     />
                     {validationErrors.name && (

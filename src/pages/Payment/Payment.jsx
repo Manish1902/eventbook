@@ -99,8 +99,8 @@ const PaymentPage = () => {
       errors.expDate = 'Expiration date is required.';
     }
 
-    if (formData.cvc.trim() === '') {
-      errors.cvc = 'CVC is required.';
+    if (formData.cvc.trim() === '' || formData.cvc.trim.length !== 3) {
+      errors.cvc = 'CVC is invalid.';
     }
 
     // Check if there are any validation errors

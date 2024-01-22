@@ -18,24 +18,23 @@ const BurgerMenu = () => {
       <div className={`menu-overlay ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}></div>
 
       <div className={`sliding-menu ${menuOpen ? 'open' : ''}`}>
-        <ul className="nav flex-column">
+        <ul className="nav flex-column mt-2">
+          <li className="nav-item">
+            <Link className='nav-link' to='/HomePage'>HomePage</Link>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="./">
+              Menu Item 1
+            </a>
+          </li>
           <li className="nav-item">
             <a className="nav-link" href="./">
               Menu Item 2
             </a>
-          </li> 
-          <li className="nav-item">
-            <a className="nav-link" href="./">
-              Menu Item 2
-            </a>
           </li>
-          <li className="nav-item">
-            <Link to='/HomePage'>HomePage</Link>
+          <li className="nav-item logout">
+            <Link className='nav-link' to='/'>LogOut</Link>
           </li>
-          <li className="nav-item ">
-            <Link to='/'>LogOut</Link>
-          </li>
-          {/* Add more menu*/}
         </ul>
       </div>
     </>

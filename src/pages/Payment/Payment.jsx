@@ -31,14 +31,15 @@ const PaymentPage = () => {
   // }, [eventDetail.priceInRupees, eventId]);
   useEffect(() => {
     setbookevent({
-      email:user.email,
-      title:selectedEvent.title,
-      date:selectedEvent.date,
-      venue:selectedEvent.venue,
-      tickets:count,
-      cost:price
-    },[bookevent])
-  })
+      email: user.email,
+      title: selectedEvent.title,
+      date: selectedEvent.date,
+      venue: selectedEvent.venue,
+      tickets: count,
+      cost: price
+    });
+  }, [user.email, selectedEvent.title, selectedEvent.date, selectedEvent.venue, count, price,setbookevent]);
+  
 
   const [formData, setFormData] = useState({
     name: user.fullName || '',

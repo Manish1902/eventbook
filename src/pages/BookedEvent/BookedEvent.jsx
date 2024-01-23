@@ -1,41 +1,47 @@
-import {useContext, useState, useEffect} from 'react'
-import {DataContext} from '../../context/dataContext';
+import { useContext, useState, useEffect } from 'react';
+import { DataContext } from '../../context/dataContext';
 import axios from 'axios';
+import Footer from '../Footer/Footer';
+import BurgerMenu from '../BurgerMenu/Burger';
 
 function BookedEvent() {
-  let { user } = useContext(DataContext);
-    let [boookedEvents,setBookedEvents] = useState([])
+  const { user } = useContext(DataContext);
+  const [boookedEvents, setBookedEvents] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get(`http://localhost:4000/bookevents/?email=${user.email}`)
-                setBookedEvents(response.data);
-                // console.log(boookedEvnets)
-          } catch (error) {
-            console.error('Error fetching event details:', error);
-          }
-        };
-    
-        fetchData();
-      }, [boookedEvents, setBookedEvents]);
-  
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/bookevents/?email=${user.email}`);
+        setBookedEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching event details:', error);
+      }
+    };
+
+    fetchData();
+  }, [user.email]);
+
   return (
-    <div className="container mt-5 mb-5">
-      <div className="card pt-5 pb-5">
-        <div className="card-body mt-3 mb-3">
-            {boookedEvents.map((book) => (
-                <div>
-                <h4>{book.title}</h4>
-                <h4>{book.date}</h4>
-                <h4>{book.venue}</h4>
-                <h4>{book.tickets}</h4>
+    <div>
+      <BurgerMenu />
+      <div className="container mt-5 mb-5">
+        <div className="row">
+          {boookedEvents.map((book) => (
+            <div key={book.id} className="col-lg-2 col-md-4 mb-4">
+              <div className="card">
+                <div className="card-body">
+                  <h4 className="card-title text-white">Event: {book.title}</h4>
+                  <p className="card-text text-white">Your Venue: {book.venue}</p>
+                  <p className="card-text text-white">Date: {book.date}</p>
+                  <p className="card-text text-white">No of Tickets: {book.tickets}</p>
+                  <p className="card-text text-white">Cost: {book.cost}</p>
                 </div>
-            ))}
-          <h2 className="card-title mb-3">Hello</h2>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

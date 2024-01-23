@@ -43,7 +43,8 @@ const EventDetailPage = () => {
             </div>
             <div className="col-md-8">
               <div className="card-body mt-3 mb-3">
-                <h4 className="card-title mb-3">{selectedEvent.title}</h4>
+                <h2 className="card-title mb-3">{selectedEvent.title}</h2>
+                <h4 className="card-title mb-3">{selectedEvent.venue}</h4>
                 <p className="card-text mb-3">{selectedEvent.date}</p>
                 <p className="card-text mt-3 mb-3">{selectedEvent.priceInRupees}</p>
                 <button className="btn btn-primary  mt -3 mb-3"><Link to={`/Payment/${selectedEvent.id}`} className='link-style'>Book Now</Link></button>

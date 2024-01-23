@@ -14,6 +14,7 @@ function DataStore({ children }) {
     title: '',
     category: '',
     date: '',
+    venue:'',
     description: '',
     imageUrl: '',
     priceInRupees: 0,

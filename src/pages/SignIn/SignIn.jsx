@@ -42,18 +42,15 @@ function SignIn() {
             setUser(newuser);
             // console.log(user);
             navigate('/HomePage');
-            // Redirect or perform further actions based on successful login
           } else {
             alert('Invalid credentials');
-            // Handle login failure
           }
         } else {
-          alert('Invalid JSON format: Missing "users" property');
+          console.log('Invalid JSON format: Missing "users" property');
         }
       })
       .catch(error => {
-        alert('Error fetching JSON data:', error);
-        // Handle error fetching JSON data
+        console.log('Error fetching JSON data:', error);
       });
   };
 

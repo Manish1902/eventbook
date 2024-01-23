@@ -246,6 +246,7 @@ const PaymentPage = () => {
                 <h5 className="card-title">Item Details</h5>
                 <hr />
                 <h6>{selectedEvent.title}</h6>
+                <h6>{selectedEvent.venue}</h6>
                 <h6>{selectedEvent.date}</h6>
                 <hr />
                 <h6>{count}</h6>
@@ -261,11 +262,11 @@ const PaymentPage = () => {
                 <button className="btn btn-primary" onClick={handleMakePayment}>
                   Make Payment
                 </button>
-                {Object.keys(validationErrors).map((key) => (
+                {/* {Object.keys(validationErrors).map((key) => (
                   <p key={key} className="text-danger mt-2">
                     {validationErrors[key]}
                   </p>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

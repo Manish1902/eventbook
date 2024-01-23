@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import PaymentPage from "./pages/Payment/Payment";
 import EventDetailPage from "./pages/EventDetailPage/EventDetailPage";
 import Events from "./pages/Events/Events";
+import BookedEvent from "./pages/BookedEvent/BookedEvent";
 // import { DataContext } from "./context/dataContext";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/Payment/:eventId" element={<PaymentPage />}></Route>
             <Route path="/EventsDetailPage/:eventId" element={<EventDetailPage />} />
             <Route path="/Events" element={<Events />}></Route>
+            <Route path="/BookedEvent" element={<BookedEvent />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

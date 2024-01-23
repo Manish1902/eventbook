@@ -23,9 +23,7 @@ const BurgerMenu = () => {
             <Link className='nav-link' to='/HomePage'>HomePage</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="./">
-              Menu Item 1
-            </a>
+            <Link className='nav-link' to='/BookedEvent'>Booked Events</Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="./">

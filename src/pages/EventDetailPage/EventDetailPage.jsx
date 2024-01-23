@@ -33,8 +33,8 @@ const EventDetailPage = () => {
   return (
     <div>
       <BurgerMenu />
-      {console.log(selectedEvent)}
-      {console.log(eventId)}
+      {/* {console.log(selectedEvent)} */}
+      {/* {console.log(eventId)} */}
       <div className="container mt-5 mb-5">
         <div className="card pt-5 pb-5" >
           <div className="row no-gutters">

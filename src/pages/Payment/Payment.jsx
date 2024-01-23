@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import { useContext } from 'react';
 import { DataContext } from '../../context/dataContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PaymentPage.css';
 import Footer from '../Footer/Footer';
 import BurgerMenu from '../BurgerMenu/Burger';
+import { useNavigate } from 'react-router-dom';
 
 const PaymentPage = () => {
-  let {user,selectedEvent } = useContext(DataContext)
+  let {user, selectedEvent ,bookevent, setbookevent} = useContext(DataContext)
   const [price, setPrice] = useState(selectedEvent.priceInRupees);
   const [count, setCount] = useState(1);
+  let navigate = useNavigate();
   // const { eventId } = useParams();
   // const [eventDetail, setEventDetails] = useState(null);
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -26,9 +27,18 @@ const PaymentPage = () => {
   //       console.error('Error fetching event details:', error);
   //     }
   //   };
-
   //   fetchData();
   // }, [eventDetail.priceInRupees, eventId]);
+  useEffect(() => {
+    setbookevent({
+      email:user.email,
+      title:selectedEvent.title,
+      date:selectedEvent.date,
+      venue:selectedEvent.venue,
+      tickets:count,
+      cost:price
+    },[bookevent])
+  })
 
   const [formData, setFormData] = useState({
     name: user.fullName || '',
@@ -99,15 +109,22 @@ const PaymentPage = () => {
       errors.expDate = 'Expiration date is required.';
     }
 
-    if (formData.cvc.trim() === '' || formData.cvc.trim.length !== 3) {
+    if (formData.cvc.trim() === '' || formData.cvc.length !== 3) {
       errors.cvc = 'CVC is invalid.';
     }
-
+    
     // Check if there are any validation errors
     if (Object.keys(errors).length === 0) {
-      // TODO: Add logic to handle the payment (e.g., send data to a payment gateway)
-      alert('Payment successful!');
-      setValidationErrors({});
+      axios.post("http://localhost:4000/bookevents", bookevent)
+      .then((res) => {
+        console.log(res);
+        alert('Payment successful!');
+        setValidationErrors({});
+        navigate('/HomePage');
+      })
+      .catch((error) => {
+        console.error('Error during registration:', error);
+      });
     } else {
       setValidationErrors(errors);
     }

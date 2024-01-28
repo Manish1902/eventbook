@@ -39,7 +39,12 @@ const EventDetailPage = () => {
         <div className="card pt-5 pb-5" >
           <div className="row no-gutters">
             <div className="col-md-4">
-              <img src={selectedEvent.imageUrl} className="card-img" alt="Event" />
+              <img
+                src={selectedEvent.imageUrl}
+                className="card-img"
+                alt="Event"
+                style={{ marginLeft: '50px', marginTop: '40px' }}
+              />
             </div>
             <div className="col-md-8">
               <div className="card-body mt-3 mb-3">

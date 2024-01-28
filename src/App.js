@@ -9,6 +9,7 @@ import PaymentPage from "./pages/Payment/Payment";
 import EventDetailPage from "./pages/EventDetailPage/EventDetailPage";
 import Events from "./pages/Events/Events";
 import BookedEvent from "./pages/BookedEvent/BookedEvent";
+import NotFound from "./pages/404Page/NotFound";
 // import { DataContext } from "./context/dataContext";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/EventsDetailPage/:eventId" element={<EventDetailPage />} />
             <Route path="/Events" element={<Events />}></Route>
             <Route path="/BookedEvent" element={<BookedEvent />}></Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </div>

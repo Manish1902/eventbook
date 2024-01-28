@@ -25,11 +25,6 @@ const BurgerMenu = () => {
           <li className="nav-item">
             <Link className='nav-link' to='/BookedEvent'>Booked Events</Link>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="./">
-              Menu Item 2
-            </a>
-          </li>
           <li className="nav-item logout">
             <Link className='nav-link' to='/'>LogOut</Link>
           </li>

@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {DataContext} from '../../context/dataContext';
+import { DataContext } from '../../context/dataContext';
 import './SignIn.css';
 import axios from 'axios';
 
 function SignIn() {
-  let {user, setUser} = useContext(DataContext) 
-  // const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const { user, setUser } = useContext(DataContext);
   const [error, setError] = useState('');
   let navigate = useNavigate();
 
@@ -15,50 +14,47 @@ function SignIn() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!user.email || !user.email.includes('@')) {
-      setError('Invalid email address');
-      return;
-    }
+    try {
+      if (!user.email || !user.email.includes('@')) {
+        setError('Invalid email address');
+        return;
+      }
 
-    if (!user.password || user.password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
-    }
+      if (!user.password || user.password.length < 6) {
+        setError('Password must be at least 6 characters');
+        return;
+      }
 
-    setError('');
-    
-    axios.get("http://localhost:4000/users")
-      .then(response => {
-        const userData = response.data;
-        // console.log('Full JSON data:', userData); // Log the entire data for debugging
-        // Check if user credentials match
-        if (userData) {
-          const newuser = userData.find(x => x.email === user.email && x.password === user.password);
-          if (newuser) {
-            // console.log(newuser);
-            setUser(newuser);
-            // console.log(user);
-            navigate('/HomePage');
-          } else {
-            alert('Invalid credentials');
-          }
+      setError('');
+
+      const response = await axios.get("http://localhost:4000/users");
+      const userData = response.data;
+
+      if (userData) {
+        const newUser = userData.find(x => x.email === user.email && x.password === user.password);
+
+        if (newUser) {
+          setUser(newUser);
+          navigate('/HomePage');
         } else {
-          console.log('Invalid JSON format: Missing "users" property');
+          setError('Invalid credentials');
         }
-      })
-      .catch(error => {
-        console.log('Error fetching JSON data:', error);
-      });
+      } else {
+        console.log('Invalid JSON format: Missing "users" property');
+      }
+    } catch (error) {
+      console.error('Error fetching JSON data:', error);
+    }
   };
 
   return (
     <div className='container'>
-      <h2><strong>Hello</strong>, Grab seats for your upcoming fav event!</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-floating mt-3">
+      <h2 className='text-center'><strong>Hello</strong>, Grab seats for your upcoming favorite event!</h2>
+      <form onSubmit={handleSubmit} className='mt-3'>
+        <div className="form-floating mb-3">
           <input
             type="email"
             className="form-control"
@@ -70,7 +66,7 @@ function SignIn() {
           />
           <label htmlFor="email">Email address</label>
         </div>
-        <div className="form-floating mt-3 mb-3">
+        <div className="form-floating mb-3">
           <input
             type="password"
             className="form-control"
@@ -82,12 +78,12 @@ function SignIn() {
           />
           <label htmlFor="password">Password</label>
         </div>
-        {error && <div className="text-danger">{error}</div>}
-        <button type="submit" className="btn">
+        {error && <div className="alert alert-danger">{error}</div>}
+        <button type="submit" className="btn btn-block">
           Sign in
         </button>
       </form>
-      <div className="mt-3">New User, Get Yourself Registered!<Link to='/SignUp' className='link-style'>SignUp</Link></div>
+      <div className="text-center">New User, Get Yourself Registered! <Link to='/SignUp' className='link-style'>SignUp</Link></div>
     </div>
   );
 }
